@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Incident_Type__c</fullName>
+    <label>Incident Type</label>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pothole</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Broken Streetlight</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Graffiti</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Fallen Tree</fullName>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Water Leak</fullName>
+                <default>false</default>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
