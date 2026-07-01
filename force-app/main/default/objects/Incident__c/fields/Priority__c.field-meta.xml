@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Priority__c</fullName>
-    <label>Priority</label>
+    <externalId>false</externalId>
     <formula>CASE(TEXT(Incident_Type__c), 
-        "Water Leak", "High", 
-        "Pothole", "Medium", 
-        "Broken Streetlight", "Low", 
-        "Graffiti", "Low", 
-        "Medium"
+        &quot;Water Leak&quot;, &quot;High&quot;, 
+        &quot;Pothole&quot;, &quot;Medium&quot;, 
+        &quot;Broken Streetlight&quot;, &quot;Low&quot;, 
+        &quot;Graffiti&quot;, &quot;Low&quot;, 
+        &quot;Medium&quot;
     )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Priority</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
