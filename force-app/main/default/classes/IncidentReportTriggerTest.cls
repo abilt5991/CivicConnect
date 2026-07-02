@@ -22,6 +22,6 @@ private class IncidentReportTriggerTest {
     Incident__c updatedParent = [SELECT Id, Escalation_Count__c FROM Incident__c WHERE Id = :parent.Id];
     System.debug('Updated Parent Count: ' + updatedParent.Escalation_Count__c);
     
-    System.assertEquals(2, updatedParent.Escalation_Count__c, 'Parent escalation count should be 1');
+    System.assertEquals(2, updatedParent.Escalation_Count__c, 'Escalation count should match the number of related Incident Report records (2)');
     }
 }

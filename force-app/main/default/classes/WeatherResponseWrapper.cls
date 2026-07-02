@@ -5,11 +5,11 @@ public class WeatherResponseWrapper {
     public Decimal longitude;
     
     // 2. The nested JSON block requires its own custom data type (the inner class)
-    public CurrentWeather current_weather;
+    public CurrentData current;
 
     // 3. The Inner Class defining what is inside "current_weather"
-    public class CurrentWeather {
-        public Decimal temperature;
-        public Decimal windspeed;
+    public class CurrentData {
+        public Decimal temperature_2m;
+        public Decimal apparent_temperature;
     }
 }

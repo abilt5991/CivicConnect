@@ -53,10 +53,11 @@ public class IncidentReportTriggerHandler extends TriggerHandler {
             for (Incident_Report__c report : orphanReports) {
                     newIncidents.add(new Incident__c(
                         Location_Zip_Code__c = report.Location_Zip_Code__c,
-                        Department__c = report.Department__c,
                         Incident_Type__c = report.Incident_Type__c,
-                        Incident_Description__c = report.Description__c, // Stamping initial data
-                        Status__c = 'New'
+                        Incident_Description__c = report.Description__c,
+                        Status__c = 'New',
+                        Location_Latitude__c = -37.818,
+                        Location_Longitude__c = 144.966
                     ));
                 }
                 
@@ -70,26 +71,25 @@ public class IncidentReportTriggerHandler extends TriggerHandler {
             }
     }
     public override void afterInsert() {
-    // 1. Get the IDs of parents needing updates
-    Set<Id> parentIds = new Set<Id>();
-    for (Incident_Report__c report : (List<Incident_Report__c>)Trigger.new) {
-        if (report.Incident__c != null) {
-            parentIds.add(report.Incident__c);
+        // Count how many reports in this transaction point to each parent
+        Map<Id, Integer> reportCountByParent = new Map<Id, Integer>();
+        for (Incident_Report__c report : (List<Incident_Report__c>)Trigger.new) {
+            if (report.Incident__c != null) {
+                Integer current = reportCountByParent.containsKey(report.Incident__c)
+                    ? reportCountByParent.get(report.Incident__c) : 0;
+                reportCountByParent.put(report.Incident__c, current + 1);
+            }
         }
-    }
 
-    if (parentIds.isEmpty()) return;
+        if (reportCountByParent.isEmpty()) return;
 
-    // 2. Query the parents, increment, and store in a list for update
-    List<Incident__c> parentsToUpdate = [SELECT Id, Escalation_Count__c FROM Incident__c WHERE Id IN :parentIds];
-    
-    for (Incident__c parent : parentsToUpdate) {
-        // Ensure we handle the null case explicitly
-        Decimal count = (parent.Escalation_Count__c == null) ? 0 : parent.Escalation_Count__c;
-        parent.Escalation_Count__c = count + 1;
+        List<Incident__c> parentsToUpdate = [SELECT Id, Escalation_Count__c FROM Incident__c WHERE Id IN :reportCountByParent.keySet()];
+
+        for (Incident__c parent : parentsToUpdate) {
+            Decimal count = (parent.Escalation_Count__c == null) ? 0 : parent.Escalation_Count__c;
+            parent.Escalation_Count__c = count + reportCountByParent.get(parent.Id);
+        }
+
+        update parentsToUpdate;
     }
-    
-    // 3. Update the database
-    update parentsToUpdate;
-}
 }

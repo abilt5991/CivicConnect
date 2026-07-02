@@ -11,9 +11,9 @@ private class WeatherQueueableTest {
         Incident__c testIncident = new Incident__c();
         testIncident.Incident_Type__c = 'Pothole';
         testIncident.Status__c = 'New';
-        testIncident.Description__c = 'Testing Queueable'; // Assuming this is optional
-        testIncident.Location_Latitude__c = 40.7128;
-        testIncident.Location_Longitude__c = -74.0060;
+        testIncident.Incident_Description__c = 'Testing Queueable';
+        testIncident.Location_Latitude__c = -37.818;
+        testIncident.Location_Longitude__c = 144.966;
         testIncident.Location_Zip_Code__c = '10001'; 
         
         // 3. Start the test context
