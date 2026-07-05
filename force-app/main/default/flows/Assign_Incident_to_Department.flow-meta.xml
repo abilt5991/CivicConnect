@@ -36,7 +36,7 @@
             <name>emailBody</name>
             <value>
                 <inputConfiguratorMode>Custom</inputConfiguratorMode>
-                <stringValue>&lt;p&gt;URGENT: Incident {!$Record.Name} has been reported multiple times! Current escalation count is {!$Record.Escalation_Count__c}. Please investigate immediately. Description: {!$Record.Incident_Description__c}&lt;/p&gt;</stringValue>
+                <stringValue>&lt;p&gt;URGENT: Incident &lt;a href=&quot;{!RecordURL}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;{!$Record.Name}&lt;/a&gt; has been reported multiple times! Current escalation count is &lt;strong&gt;&lt;em&gt;{!$Record.Escalation_Count__c}&lt;/em&gt;&lt;/strong&gt;. Please investigate immediately. Description: &lt;em&gt;{!$Record.Incident_Description__c}&lt;/em&gt;&lt;/p&gt;</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -82,7 +82,7 @@
             <name>emailBody</name>
             <value>
                 <inputConfiguratorMode>Custom</inputConfiguratorMode>
-                <stringValue>&lt;p&gt;A new incident of type {!$Record.Incident_Type__c} has been reported at {!$Record.Location_Zip_Code__c}.&lt;/p&gt;</stringValue>
+                <stringValue>&lt;p&gt;A new incident of type &lt;a href=&quot;{!RecordURL}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;{!$Record.Incident_Type__c}&lt;/a&gt; has been reported at {!$Record.Location_Zip_Code__c}.&lt;/p&gt;</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -97,28 +97,6 @@
     </actionCalls>
     <apiVersion>67.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
-    <decisions>
-        <name>Has_Department_Email</name>
-        <label>Has Department Email?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnectorLabel>No Email — Skip</defaultConnectorLabel>
-        <rules>
-            <name>Department_Email_Present</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Get_Target_Department.Department_Email__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Notify_Department_about_the_Incident</targetReference>
-            </connector>
-            <label>Email Present</label>
-        </rules>
-    </decisions>
     <decisions>
         <name>No_Routing_Rule_Found</name>
         <label>No Routing Rule Found</label>
@@ -172,6 +150,11 @@
     </decisions>
     <description>When a new incident is created or escalated, notify the department.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>RecordURL</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_550}, FIND( &apos;/services&apos;, {!$Api.Partner_Server_URL_550})) &amp; {!$Record.Id}</expression>
+    </formulas>
     <interviewLabel>Assign Incident to Department {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Assign Incident to Department</label>
     <processMetadataValues>
@@ -203,7 +186,7 @@
             <targetReference>Get_Target_Department</targetReference>
         </connector>
         <faultConnector>
-            <isGoTo>false</isGoTo>
+            <isGoTo>true</isGoTo>
             <targetReference>No_Routing_Rule_Found</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
@@ -228,7 +211,6 @@
             <targetReference>Assign_Department</targetReference>
         </connector>
         <faultConnector>
-            <isGoTo>false</isGoTo>
             <targetReference>No_Routing_Rule_Found</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
