@@ -56,8 +56,8 @@ public class IncidentReportTriggerHandler extends TriggerHandler {
                         Incident_Type__c = report.Incident_Type__c,
                         Incident_Description__c = report.Description__c,
                         Status__c = 'New',
-                        Location_Latitude__c = -37.818,
-                        Location_Longitude__c = 144.966
+                        Location_Latitude__c = report.Location_Latitude__c != null ? report.Location_Latitude__c : -37.818,
+                        Location_Longitude__c = report.Location_Longitude__c != null ? report.Location_Longitude__c : 144.966
                     ));
                 }
                 

@@ -1,6 +1,12 @@
 @isTest
 private class IncidentReportTriggerTest {
 
+    @TestSetup
+    static void setupData() {
+        insert new Department__c(Name = 'Public Works', Is_Active__c = true, Department_Email__c = 'publicworks@test.civicconnect.com');
+        insert new Department__c(Name = 'Sanitation', Is_Active__c = true, Department_Email__c = 'sanitation@test.civicconnect.com');
+    }
+
     @isTest
     static void testIncidentReportTriggerLogic() {
         // 1. Arrange

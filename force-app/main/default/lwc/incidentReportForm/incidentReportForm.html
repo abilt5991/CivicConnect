@@ -1,0 +1,142 @@
+<template>
+    <div class="slds-card slds-card_boundary">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center">
+                    <lightning-icon icon-name="standard:incident" alternative-text="Report an Incident" size="small"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Report an Incident</span>
+                    </h2>
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_xxx-small">Report a non-emergency issue to your local council</p>
+                </div>
+            </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- Success state -->
+            <template lwc:if={isSubmitted}>
+                <div class="slds-illustration slds-illustration_small slds-p-around_medium slds-text-align_center">
+                    <lightning-icon icon-name="action:approval" size="large" variant="success"></lightning-icon>
+                    <h3 class="slds-text-heading_medium slds-m-top_medium">Thank you! Your report has been submitted.</h3>
+                    <p class="slds-text-body_regular slds-m-top_small slds-text-color_weak" style="margin-bottom: 4%;">A case number has been created and your local council will be in touch.</p>
+                    <lightning-button
+                        label="Submit Another Report"
+                        variant="brand"
+                        class="slds-m-top_medium"
+                        onclick={handleReset}>
+                    </lightning-button>
+                </div>
+            </template>
+
+            <!-- Form state -->
+            <template lwc:else>
+                <div class="slds-form slds-form_stacked form-body">
+
+                    <h3 class="slds-section-title--divider section-title">Basic Information</h3>
+                    <div class="slds-grid slds-wrap slds-gutters_small">
+                        <!-- Incident Type -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 field-col">
+                            <lightning-combobox
+                                label="Incident Type"
+                                name="incidentType"
+                                value={incidentType}
+                                placeholder="Select Incident Type"
+                                options={incidentTypeOptions}
+                                required
+                                message-when-value-missing="Please enter the type of incident."
+                                onchange={handleInputChange}>
+                            </lightning-combobox>
+                        </div>
+
+                        <!-- Zip Code -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 field-col">
+                            <lightning-input
+                                label="Zip Code"
+                                name="zipCode"
+                                value={zipCode}
+                                placeholder="e.g. 3000"
+                                required
+                                pattern="[0-9]{4,5}"
+                                message-when-pattern-mismatch="Please enter a valid 4 or 5 digit zip code."
+                                message-when-value-missing="Please enter the zip code of the incident location."
+                                onchange={handleInputChange}>
+                            </lightning-input>
+                        </div>
+
+                        <!-- Description — full width -->
+                        <div class="slds-col slds-size_1-of-1 field-col">
+                            <lightning-textarea
+                                label="Description"
+                                name="description"
+                                value={description}
+                                placeholder="Describe the issue in as much detail as possible."
+                                required
+                                max-length="32768"
+                                message-when-value-missing="Please describe the incident."
+                                onchange={handleInputChange}>
+                            </lightning-textarea>
+                        </div>
+                    </div>
+
+                    <!-- Location section -->
+                    <h3 class="slds-section-title--divider section-title slds-m-top_medium">Location Details</h3>
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control slds-grid slds-wrap slds-align-middle">
+                            <!-- Get Location button -->
+                            <div class="slds-col slds-grow-none slds-m-right_small slds-m-bottom_x-small">
+                                <lightning-button
+                                    label={locationButtonLabel}
+                                    icon-name="utility:location"
+                                    variant={locationButtonVariant}
+                                    disabled={isLocating}
+                                    onclick={handleGetLocation}>
+                                </lightning-button>
+                            </div>
+
+                            <!-- Location status feedback -->
+                            <div class="slds-col slds-m-bottom_x-small">
+                                <template lwc:if={locationStatus}>
+                                    <template lwc:if={hasLocation}>
+                                        <lightning-pill label={locationStatus} has-error={locationError}>
+                                            <lightning-icon icon-name="utility:check" variant="success" alternative-text="Success"></lightning-icon>
+                                        </lightning-pill>
+                                    </template>
+                                    <template lwc:elseif={locationError}>
+                                        <p class="slds-text-body_small slds-text-color_error" aria-live="polite">
+                                            <lightning-icon icon-name="utility:error" size="xx-small" variant="error" class="slds-m-right_xx-small"></lightning-icon>
+                                            {locationStatus}
+                                        </p>
+                                    </template>
+                                    <template lwc:else>
+                                        <p class="slds-text-body_small slds-text-color_weak" aria-live="polite">
+                                            {locationStatus}
+                                        </p>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="slds-form-element slds-m-top_medium">
+                        <button
+                            class="slds-button slds-button_brand submit-button-native"
+                            disabled={isSubmitting}
+                            onclick={handleSubmit}>
+                            Submit Report
+                        </button>
+                        <template lwc:if={isSubmitting}>
+                            <lightning-spinner alternative-text="Submitting..." size="small" class="slds-m-left_small">
+                            </lightning-spinner>
+                        </template>
+                    </div>
+
+                </div>
+            </template>
+
+        </div>
+    </div>
+</template>

@@ -1,0 +1,84 @@
+/* ── Host & card shell ──────────────────────────────────────────────────── */
+:host {
+    display: block;
+
+    /* Input border colour & width tokens (used by lightning-input, textarea, combobox) */
+    --slds-c-input-color-border:         #adc4db;
+    --slds-c-input-sizing-border:        1px;
+    --slds-c-textarea-color-border:      #adc4db;
+    --slds-c-textarea-sizing-border:     1px;
+    --slds-c-combobox-color-border:      #adc4db;
+    --slds-c-combobox-sizing-border:     1px;
+
+    /* Dropdown list option — hover, focus & active highlight
+       Covers legacy tokens, gen-2, and gen-3 SLDS token names used
+       by lightning-base-combobox-item internally */
+    --slds-c-listbox-option-color-background-focus:  #dfeaf5;
+    --slds-c-listbox-option-color-background-active: #dfeaf5;
+    --lwc-colorBackgroundRowHover:                   #dfeaf5;
+    --lwc-colorBackgroundRowActive:                  #dfeaf5;
+    /* gen-3 tokens read by lightning-base-combobox-item */
+    --slds-g-color-neutral-base-95:                  #dfeaf5;
+    --sds-g-color-brand-base-95:                     #dfeaf5;
+    --slds-g-color-brand-base-95:                    #dfeaf5;
+}
+
+/* 5. Card: remove border, apply #dfeaf5 shadow */
+.slds-card.slds-card_boundary {
+    max-width: 640px;
+    margin: 0 auto;
+    border: none !important;
+    box-shadow: 0 0 0 1px #dfeaf5, 0 4px 16px 0 #dfeaf5 !important;
+    border-radius: 0.5rem;
+}
+
+/* 2. Align card header & body to same left edge as inputs */
+.slds-card__header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.slds-card__body.slds-card__body_inner {
+    padding: 0 1rem 1rem;
+}
+
+/* 1. Floating labels — lift the label to sit above the input line */
+.field-col lightning-input,
+.field-col lightning-combobox,
+.field-col lightning-textarea {
+    --slds-c-input-label-font-size: 0.75rem;
+}
+
+/* Section divider headers — no grey background, flush left with fields */
+.section-title {
+    padding-left: 0;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.0625rem;
+    text-transform: uppercase;
+    color: #5c7a99;
+    background-color: transparent;
+    border-bottom: 1px solid #dfeaf5;
+}
+
+/* Consistent bottom spacing per field column */
+.field-col {
+    padding-bottom: 0.5rem;
+}
+
+/* Soften focus ring to match the palette */
+.field-col lightning-input:focus-within,
+.field-col lightning-combobox:focus-within,
+.field-col lightning-textarea:focus-within {
+    --slds-c-input-color-border-focus: #4a90c4;
+}
+
+/* Submit button — native SLDS brand button, full width with padding */
+.submit-button-native {
+    width: 100%;
+    padding: 8px;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}

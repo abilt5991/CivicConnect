@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Department_Name__c</fullName>
+    <label>Department Name</label>
+    <description>The name of the department incidents of this type should be routed to.</description>
+    <inlineHelpText>Enter the exact department name as it appears on the Department__c object (e.g. Public Works, Sanitation).</inlineHelpText>
+    <type>Text</type>
+    <length>255</length>
+    <required>false</required>
+    <unique>false</unique>
+    <externalId>false</externalId>
+</CustomField>

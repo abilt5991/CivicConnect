@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Active__c</fullName>
+    <label>Active</label>
+    <description>Indicates whether this department is currently active and available for incident routing.</description>
+    <inlineHelpText>Uncheck to deactivate this department so it no longer appears as a routing option for new incidents.</inlineHelpText>
+    <type>Checkbox</type>
+    <defaultValue>true</defaultValue>
+</CustomField>

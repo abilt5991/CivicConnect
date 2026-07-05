@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesIncludeBosses>false</doesIncludeBosses>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>abi.justkiddy17@gmail.com</email>
+    <name>Civic Support Fallback</name>
+    <queueMembers>
+        <users>
+            <user>abi.dev.pro.e74181d4e05f@agentforce.com</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>CivicConnect_Assistant_Routing</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>MessagingSession</sobjectType>
+    </queueSobject>
+</Queue>

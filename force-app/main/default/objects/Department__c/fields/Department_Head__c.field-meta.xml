@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Department_Head__c</fullName>
+    <label>Department Head</label>
+    <description>The Salesforce User who is the head or manager of this department.</description>
+    <inlineHelpText>Select the User record for the department head responsible for managing incidents assigned to this department.</inlineHelpText>
+    <type>Lookup</type>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Departments (Department Head)</relationshipLabel>
+    <relationshipName>Department_Head_Departments</relationshipName>
+    <required>false</required>
+    <deleteConstraint>SetNull</deleteConstraint>
+</CustomField>

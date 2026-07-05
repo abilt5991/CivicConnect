@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Department_Head_Email__c</fullName>
+    <label>Head Email</label>
+    <description>Direct email address for the department head.</description>
+    <inlineHelpText>Enter the personal work email of the department head for direct escalation contact.</inlineHelpText>
+    <type>Email</type>
+    <required>false</required>
+    <unique>false</unique>
+    <externalId>false</externalId>
+</CustomField>

@@ -39,10 +39,7 @@ public with sharing class IncidentLoggerAction {
             Incident_Report__c newReport = new Incident_Report__c();
             newReport.Incident_Type__c = req.incidentType;
             newReport.Description__c = req.description;
-            newReport.Location_Zip_Code__c = req.zipCode;
-            
-            // Note: In a production scenario, you would normally geocode the zip to Lat/Lon here.
-            // For now, we will add dummy coordinates so your WeatherQueueable still fires successfully!
+            newReport.Location_Zip_Code__c = String.isBlank(req.zipCode) ? '3000' : req.zipCode;
             newReport.Location_Latitude__c = -37.818;
             newReport.Location_Longitude__c = 144.966;
 
