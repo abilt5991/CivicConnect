@@ -39,6 +39,12 @@
                 <stringValue>&lt;p&gt;URGENT: Incident {!$Record.Name} has been reported multiple times! Current escalation count is {!$Record.Escalation_Count__c}. Please investigate immediately. Description: {!$Record.Incident_Description__c}&lt;/p&gt;</stringValue>
             </value>
         </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
         <nameSegment>emailSimple</nameSegment>
         <offset>0</offset>
         <versionString>3.0.1</versionString>
@@ -77,6 +83,12 @@
             <value>
                 <inputConfiguratorMode>Custom</inputConfiguratorMode>
                 <stringValue>&lt;p&gt;A new incident of type {!$Record.Incident_Type__c} has been reported at {!$Record.Location_Zip_Code__c}.&lt;/p&gt;</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </inputParameters>
         <nameSegment>emailSimple</nameSegment>
