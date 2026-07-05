@@ -1,58 +1,50 @@
-# Salesforce DX Project
+# CivicConnect
 
-Salesforce DX is a development approach that brings source-driven development, team collaboration, and continuous integration to the Salesforce Platform. Instead of working directly in an org through a web browser, you work with metadata as source files in a local DX project, track changes in version control, and deploy through automated processes.
+## 1. Overview
+CivicConnect is a modern, Salesforce-based civic engagement platform designed to empower citizens to easily report non-emergency local incidents—such as potholes, fallen trees, graffiti, water leaks, and broken streetlights—directly to their local government. 
 
-This project template gets you started with the tools and structure you need to build Salesforce applications using source control, scratch orgs, and the Salesforce CLI.
+By leveraging an intuitive public-facing portal (Experience Cloud) and an intelligent AI chatbot (Agentforce), CivicConnect streamlines the reporting process. Behind the scenes, intelligent routing automation ensures that every incident is instantly directed to the appropriate city department for rapid resolution.
 
-## Prerequisites
+## 2. Technical Skills Used
+This project incorporates a full-stack Salesforce architecture, demonstrating expertise in the following areas:
 
-Before you start, make sure you have:
+*   **Lightning Web Components (LWC):** Built a responsive, modern, and accessible user interface (`incidentReportForm`) with advanced CSS (floating labels, dynamic UI feedback, balanced layouts).
+*   **Agentforce & Omnichannel:** Configured an autonomous AI agent (`CivicConnect_Assistant`), Web Messaging Channels, and Embedded Service Deployments with guest user access to allow citizens to report incidents via conversational AI.
+*   **Apex Development:** 
+    *   **Invocable Actions:** Built bulkified `@InvocableMethod` classes (`IncidentLoggerAction`) to bridge the AI agent with backend DML operations.
+    *   **Apex Triggers:** Implemented a robust Trigger Framework (`IncidentReportTriggerHandler`) for complex parent-child record generation and escalation counting.
+    *   **Asynchronous Apex:** Used `Queueable` interfaces and HTTP Callouts (`WeatherQueueable`) to enrich incidents with external API data.
+    *   **Testing:** Wrote comprehensive unit tests (`IncidentLoggerActionTest`, `WeatherQueueableTest`, `IncidentReportTriggerTest`) achieving 100% code coverage.
+*   **Salesforce Flow Automation:** Designed Record-Triggered flows (`Assign_Incident_to_Department`) to automate email notifications and data updates.
+*   **Data Modeling & Architecture:** Designed complex data relationships using Custom Objects (`Incident__c`, `Incident_Report__c`, `Department__c`).
+*   **Custom Metadata Types (CMDT):** Built scalable, hardcode-free routing rules (`Incident_Routing_Rule__mdt`) to dynamically assign incidents to departments based on the incident type.
+*   **Security & Access Control:** Configured Permission Sets (`Incident_Manager`), Guest User profiles, external credentials, and object/field-level security.
+*   **Salesforce CLI & Source Control:** Managed metadata extraction, deployments, and version control using SFDX and Git.
 
-- **Salesforce CLI** - Download from [developer.salesforce.com/tools/salesforcecli](https://developer.salesforce.com/tools/salesforcecli). See [Install Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) for details.
-- **VS Code with Salesforce Extension Pack** - See [Installation Instructions](https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/install.html) for details. Includes the Agentforce Vibes extension.
-- **A development org** - Sign up for a free Developer Edition org [here](https://developer.salesforce.com/signup).
-- **Dev Hub enabled** (optional, required to create scratch orgs) - You can enable Dev Hub in your development org under Setup > Dev Hub.  See [Provide Developers Access to Salesforce DX Tools](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_setup_dx_tools.htm).
+## 3. Implementation Phases
+The project was systematically built across the following phases:
 
-## Project Structure
+### Phase 1: Foundational Architecture & Security
+*   Designed the core data model (Incidents, Incident Reports, and Departments).
+*   Configured Custom Metadata Types for scalable incident routing.
+*   Established security protocols, including the `Incident_Manager` Permission Set and Profile-based access controls.
 
-Your DX project follows this structure:
+### Phase 2: Web Portal & User Experience (UX)
+*   Developed the custom `incidentReportForm` Lightning Web Component for Experience Cloud.
+*   Refined UI/UX with modern design aesthetics, including floating labels, custom dropdown highlights, and balanced visual structures without standard Salesforce borders.
 
-- **`force-app/main/default/`** - Your metadata source files live in this default package directory. You can configure additional package directories in the `sfdx-project.json` file.
-- **`config/`** - Scratch org definitions and project settings
-- **`scripts/`** - Automation scripts for common tasks
-- **`sfdx-project.json`** - Project manifest that defines package directories, namespace, API version, and other project-level settings
+### Phase 3: Automation & Backend Logic
+*   Implemented Apex Trigger handlers to seamlessly link citizen reports to centralized Incident records.
+*   Built asynchronous HTTP callouts to fetch real-time weather data during incident creation.
+*   Created Record-Triggered Flows to automatically notify Department Heads when new incidents are routed or escalated.
 
-See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm).
+### Phase 4: AI & Chatbot Integration
+*   Deployed Agentforce to the Experience Cloud site via a Web Messaging Channel.
+*   Developed Apex Invocable actions allowing the chatbot to interpret citizen input, extract details (Incident Type, Description, Zip Code), and log records autonomously.
+*   Resolved complex Guest User and metadata permissions to ensure seamless AI operation for unauthenticated visitors.
 
-## Get Started
-
-Ready to start developing? The [Get Started with Salesforce DX](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_get_started_dx.htm) guide walks you through your first project, from creating a scratch org to creating a simple Apex class or LWC to deploying your code to a sandbox.
-
-## Common Salesforce CLI Commands
-
-Here are common CLI commands that you'll use the most:
-
-- `sf org login web`: Authorize an org
-- `sf org open`: Open your org in a browser
-- `sf org create scratch`: Create a scratch org
-- `sf project deploy start`: Deploy metadata to your org
-- `sf project retrieve start`: Retrieve metadata from your org
-- `sf template generate <artifact>`: Scaffold new components, such as Apex classes and triggers, LWC components, Lightning apps, and more
-- `sf apex <command>`: Run Apex tests, run anonymous Apex blocks, and view logs
-- `sf data <command>`: Work with test data
-- `sf alias <command>`: Manage org aliases
-- `sf config <command>`: Configure CLI settings
-
-## Use Agentforce Vibes to Build Lightning Apps
-
-Transform your ideas into custom Lightning apps that extend CRM workflows directly in Lightning Experience. Through natural conversations with Agentforce Vibes, implement custom objects and fields, complex business logic, and dynamic UI components. See [Build a Lightning App Using Agentforce Vibes](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/lexapp-overview.html).
-
-## Additional Resources
-
-- [Agentforce Vibes Developer Guide](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/einstein-overview.html)
-- [Salesforce CLI Installation Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/)
-- [Salesforce CLI Plugin Development Guide](https://developer.salesforce.com/docs/platform/salesforce-cli-plugin/guide/conceptual-overview.html)
-- [Salesforce VS Code Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-
+## 4. Future Enhancements
+*   **Geolocation & Maps Integration:** Automatically detect and map user coordinates using the Google Maps or Salesforce Maps API.
+*   **Multimedia Uploads:** Allow citizens to upload photos of incidents directly to the LWC or chatbot, potentially utilizing Einstein Vision to automatically categorize the issue.
+*   **Community Upvoting:** Introduce a feature where citizens can view existing incidents in their zip code and "upvote" them to increase priority, rather than logging duplicate reports.
+*   **Proactive Case Deflection:** Enhance the Agentforce bot with a Knowledge Base so it can answer common city inquiries (e.g., "When is trash day?") in addition to logging incidents.
