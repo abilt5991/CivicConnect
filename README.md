@@ -5,7 +5,10 @@
 CivicConnect is a modern, Salesforce-based civic engagement platform designed to help citizens easily report non-emergency local incidents—such as potholes, fallen trees, graffiti, water leaks, and broken streetlights—directly to their local government. By bridging the gap between citizens and city departments, CivicConnect solves the problem of slow reporting times and misrouted city requests. The platform targets both everyday citizens (via a public-facing Experience Cloud portal and an intelligent Agentforce AI chatbot) and city officials (who benefit from automated Custom Metadata routing and robust Apex trigger frameworks to resolve incidents quickly).
 
 ## Visuals
-<img width="1470" height="802" alt="Civic Connect Portal" src="https://github.com/user-attachments/assets/084e6985-fb8f-4250-8653-d2dcc2c3d60d" />
+
+https://github.com/user-attachments/assets/ab9bad0b-4a5c-4845-83b1-ccdf6a5acc07
+
+
 
 ## Prerequisites
 To deploy and develop on the CivicConnect Salesforce project, you will need:
